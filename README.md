@@ -10,6 +10,9 @@
   - 파이썬과 SQL, AWS 클라우드 서비스를 사용해 봄으로써 ETL을 실습해 봄
 - 상품 관련 정보를 분석하고 시각화
   - 무신사 스탠다드 브랜드에 대한 인사이트를 얻어 매출 증대에 기여할 수 있는 데이터 제공
+    - 무신사 스탠다드의 판매 추이와 카테고리별 매출 분석
+    - 카테고리 별 통계를 통한 구매자의 성향 파악
+    - 구매 고객들의 사이즈 추천 자료를 통한 신체 사이즈로 사이즈 가이드 제공
 
 ## **활용 언어 및 활용 기술**
 
@@ -150,11 +153,34 @@
 
 - S3 버킷으로부터 Redshift에 COPY
 
-### Superset 대시 보드 구성
+### Superset 대시보드 구성
 
 - Docker로 Superset 실행 후 admin으로 로그인
 - 데이터베이스 연결 후 데이터 셋 만들기
-- 차트 만들기
+- 차트 생성
+  - 브랜드의 총 상품수
+    - 데이터 레코드 수 합산
+    - SUM(product_count)
+  - 연간 총 매출 시각화
+    - 1년 동안의 매출 합산
+    - SUM(total_annual_sales)
+  - 카테고리별 전체 통계
+    - 월간 조회수: monthly_average_views (bar)
+    - 연간 판매 수: annual_average_sales (bar)
+    - 연간 총 매출: total_annual_sales (line)
+  - 구매자 성별 비율
+    - 제품별 타켓팅 방향성 분석
+    - 남성 비율: male_buyer_ratio
+    - 여성 비율: female_buyer_ratio
+  - 가격대별 상품 및 매출 통계
+    - 상품 수 Pie Chart
+    - 상품 별 매출 Line Chart
+    - 조회수 대비 실제 구매자 비율 Line Chart
+  - 대/중분류별 몸무게,키를 통한 사이즈 선택 통계
+    - 고객: 사이즈 선택 용이 / 브랜드: 생산량 파악 및 조정
+    - 남성/ 여성 별 사이즈 선택 현황 파악
+    - 카테고리 필터링 → 대분류/중분류 필터 박스 이용
+    - 필요한 카테고리를 선택하여 필요한 정보 획득
 - 대시 보드에 차트 배치
 
 ## **대시보드 결과물**
@@ -162,6 +188,7 @@
 <img src="https://autumn-windscreen-3f2.notion.site/image/https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FboyJy8%2FbtsBGop4hsG%2Fcvsfn7jq4s7gYeIcj6dIGk%2Fimg.jpg?table=block&id=ea04222a-4c5a-4d9a-8129-ecfe1e84701a&spaceId=4ed342a9-8224-49ba-bbad-655f8be13df1&width=1400&userId=&cache=v2" width="700">
 
 - 인사이트
+
   - 조회수 대비 실제 구매 비율은 대략 2.3%
   - 사이즈
     - 남성 기준 L > XL > M 선호
@@ -170,6 +197,8 @@
     - 전체 매출 비율은 5만원 이하 가격대의 가장 높음
     - 상품 하나 당 매출 비율은 15만원 이상~20만원 미만 구간이 가장 높음
     - 전체 구매자 성별 비율 - 남성(62.5%), 여성(37.5%)
+
+- [결과물 소개 문서](https://file.notion.so/f/f/e937a7f9-dece-4540-8e1e-3c5966896424/73d646f6-ad12-4581-a021-cf6ba8031363/2%E1%84%8E%E1%85%A1%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3_6%E1%84%90%E1%85%B5%E1%86%B71%E1%84%8C%E1%85%A9.pdf?id=124a1313-6de8-43f2-9c95-3f9479347a41&table=block&spaceId=e937a7f9-dece-4540-8e1e-3c5966896424&expirationTimestamp=1707062400000&signature=tMK5dArlVL8ALMoplr9YrDlzujKxjpDySey_anjAnmU&downloadName=2%E1%84%8E%E1%85%A1%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3_6%E1%84%90%E1%85%B5%E1%86%B71%E1%84%8C%E1%85%A9.pdf)
 
 ## **검토 / 개선점**
 
